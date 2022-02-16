@@ -8,7 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^0.2.7",
     "core-js": "^3.6.5",
+    "element-plus": "^2.0.2",
     "vue": "^3.0.0"
   },
   "devDependencies": {
@@ -18,7 +20,9 @@
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0"
+    "eslint-plugin-vue": "^7.0.0",
+    "unplugin-auto-import": "^0.5.11",
+    "unplugin-vue-components": "^0.17.18"
   },
   "eslintConfig": {
     "root": true,

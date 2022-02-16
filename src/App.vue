@@ -1,17 +1,15 @@
 <template>
-  <h1>
-    这是一个测试
-  </h1>
+  <Login></Login>
 </template>
 
 <script>
 
+import Login from "@/pages/User/Login";
 export default {
   name: 'App',
-
+  components: {Login},
 }
 </script>
 
 <style>
-
 </style>
