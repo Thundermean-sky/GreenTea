@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" v-if="userData.isOnline">
     <div id="login_title">
       <span>登录绿茶汉化组</span>
     </div>
@@ -12,7 +12,7 @@
           <el-input size="large" type="password" v-model="userData.password" placeholder="请输入密码" show-password/>
         </el-form-item>
         <el-form-item>
-          <el-button id="login_btn" type="success" @click="submitForm" round size="large">登录</el-button>
+          <el-button id="login_btn" type="success" @click="submitForm('ruleFormRef')" round size="large">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -20,38 +20,69 @@
 </template>
 
 <script>
-import {reactive} from "vue";
-export default {
-  name: "Login",
-  setup()
-  {
+import {getCurrentInstance, reactive} from "vue";
+import {useRouter} from "vue-router";
 
+export default {
+  name: 'Login',
+  setup(){
+    const {proxy} = getCurrentInstance()
+    const router = useRouter()
     let userData = reactive({
       username: "",
-      password: ""
+      password: "",
+      isOnline:true
     })
     const rules = reactive({
-      username:[
+      username: [
         {
           required: true,
-          message:'请输入用户名',
+          message: '请输入用户名',
           trigger: "change"
         },
+        {
+          pattern: /^([a-zA-Z0-9_\u4e00-\u9fa5]{2,16})$/,
+          message: "请输入正确的用户名",
+          trigger: "blur"
+        }
       ],
-      password:[
+      password: [
         {
           required: true,
-          message:'请输入密码',
+          message: '请输入密码',
           trigger: "change"
+        },
+        {
+          pattern: /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]{6,18}$/,
+          message: "密码仅支持大小写字母和数,且长度至少为6位",
+          trigger: "blur"
         }
       ]
     })
-    function submitForm()
-    {
-      console.log(userData)
 
+     const submitForm = (refName)=> {
+      proxy.$refs[refName].validate((valid) =>{
+        if(!valid)
+        {
+          alert('用户名活密码错误')
+        }
+        else
+        {
+          userData.isOnline = false
+
+          router.push({
+            path: "/homepage"
+          })
+        }
+
+      })
     }
-    return {userData, rules, submitForm}
+
+    return{userData, rules, submitForm}
+
+  },
+  beforeUnmount() {
+
   }
 }
 </script>
@@ -60,6 +91,8 @@ export default {
 .login {
   width: 300px;
   height: 300px;
+  box-shadow: 0 0 10px greenyellow;
+  border-radius: 10px;
 }
 .login_content {
   display: flex;
@@ -71,9 +104,11 @@ export default {
 }
 #login_title {
   font-size: 20px;
+  color: #AEDD81;
   position: relative;
   text-align: center;
-  height: 30px;
+  height: 60px;
+  top: 30px;
 }
 #login_btn{
   position: relative;

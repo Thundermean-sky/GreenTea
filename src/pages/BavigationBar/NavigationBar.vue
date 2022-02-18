@@ -1,0 +1,52 @@
+<template>
+  <div>
+    <el-tabs class="title">
+      <el-tab-pane >
+        <template v-slot:label>
+          <div class="title_item">首页</div>
+        </template>
+      </el-tab-pane>
+      <el-tab-pane>
+          <template v-slot:label>
+            <div class="title_item">漫画</div>
+          </template>
+      </el-tab-pane>
+      <el-tab-pane>
+          <template v-slot:label>
+            <div class="title_item">小说</div>
+          </template>
+      </el-tab-pane>
+      <el-tab-pane>
+          <template v-slot:label>
+            <div class="title_item">游戏</div>
+          </template>
+      </el-tab-pane>
+      <el-tab-pane>
+          <template v-slot:label>
+            <div class="title_item">关于我们</div>
+          </template>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "NavigationBar",
+  setup(){
+  }
+}
+</script>
+
+<style scoped>
+.title{
+  display: flex;
+  justify-content: center;
+  height: 40px;
+}
+.title_item{
+  width: 100px;
+  font-size: 25px;
+  text-align: center;
+}
+</style>
