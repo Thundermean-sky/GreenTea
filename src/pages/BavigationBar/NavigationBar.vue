@@ -40,13 +40,15 @@ export default {
 
 <style scoped>
 .title{
-  display: flex;
-  justify-content: center;
+  /*display: flex;*/
+  /*justify-content: center;*/
+  position: relative;
   height: 40px;
 }
 .title_item{
   width: 100px;
   font-size: 25px;
   text-align: center;
+  color: #67C23A;
 }
 </style>

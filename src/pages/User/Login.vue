@@ -31,7 +31,7 @@ export default {
     let userData = reactive({
       username: "",
       password: "",
-      isOnline:true
+      isOnline:false
     })
     const rules = reactive({
       username: [

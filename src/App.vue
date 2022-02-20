@@ -1,34 +1,47 @@
 <template>
+<!--    <div class="login">-->
+<!--&lt;!&ndash;      <Login></Login>&ndash;&gt;-->
+<!--    </div>-->
   <div>
-    <div class="login">
-      <Login></Login>
-    </div>
-    <div >
-      <HomePage></HomePage>
-    </div>
+    <NavigationBar/>
   </div>
-  
-
+  <div>
+    <Carousel/>
+  </div>
+  <div class="home-content">
+    <HomePage></HomePage>
+  </div>
+  <div>
+    <Footer/>
+  </div>
 </template>
 
 <script>
 
-import Login from "@/pages/User/Login";
 import HomePage from "@/pages/HomePage/HomePage";
+import NavigationBar from "@/pages/BavigationBar/NavigationBar";
+import Footer from "@/components/Footer";
+import Carousel from "@/components/Carousel";
+
 export default {
   name: 'App',
-  components: {HomePage, Login},
+  components: {Carousel, NavigationBar, HomePage,Footer},
 }
 </script>
 
 <style scoped>
-.login {
+/*.login {*/
 
-  position: absolute;
-  margin: auto;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+/*  position: absolute;*/
+/*  margin: auto;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  right: 0;*/
+/*  bottom: 0;*/
+/*}*/
+.home-content {
+  position: relative;
+  width: 100%;
+  left: 150px;
 }
 </style>
