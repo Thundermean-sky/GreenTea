@@ -1,10 +1,7 @@
 <template>
-  <el-card>
-    <template v-slot:header>
-      <span class="title">浏览排行</span>
-    </template>
-    <div >
-      <el-link class="link" type="success" v-for="item in urlList" :href="item.url" :key="item.id">{{item.text}}</el-link>
+  <el-card header="浏览排行">
+    <div class="link">
+      <el-link style="padding: 10px" type="success" v-for="item in urlList" :href="item.url" :key="item.id">{{item.text}}</el-link>
     </div>
   </el-card>
 </template>
@@ -17,9 +14,9 @@ export default {
   setup(){
     const rankList = reactive({
       urlList:[
-        {id: '001', text: 'WWWWWWW', url: 'www.baidu.com'},
-        {id: '002', text: 'SSSSSSSS', url: 'www.bilibili.com'},
-        {id: '003', text: 'XXXXXXXX', url: 'www.sina.com'},
+        {id: '001', text: 'WWWWWWW', url: 'https://www.baidu.com'},
+        {id: '002', text: 'SSSSSSSS', url: 'https://www.bilibili.com'},
+        {id: '003', text: 'XXXXXXXX', url: 'https://www.sina.com'},
       ]
     })
 
@@ -31,5 +28,9 @@ export default {
 <style scoped>
 .link{
   width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 </style>

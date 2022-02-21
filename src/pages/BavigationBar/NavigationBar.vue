@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs class="title">
+    <el-tabs class="title" @tab-click="changePath">
       <el-tab-pane >
         <template v-slot:label>
           <div class="title_item">首页</div>
@@ -34,6 +34,11 @@
 export default {
   name: "NavigationBar",
   setup(){
+    function changePath(pages){
+      console.log(pages.index)
+    }
+
+    return {changePath}
   }
 }
 </script>

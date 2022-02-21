@@ -1,9 +1,9 @@
 <template>
   <div class="rec">
+    <div class="first">
       <Recommend title="漫画"/>
-  </div>
-  <div class="rank">
-    <RankList/>
+      <RankList class="rank"/>
+    </div>
   </div>
   <div class="rec">
     <Recommend title="小说"/>
@@ -27,9 +27,10 @@ export default {
   width: 1000px;
 }
 .rank{
-  width: 400px;
+  width: 300px;
   position: absolute;
-  right: 320px;
-  top: 100px;
+  left: 1250px;
+  top: 50px;
 }
+
 </style>

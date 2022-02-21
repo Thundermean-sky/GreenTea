@@ -1,13 +1,16 @@
 <template>
-  <el-carousel type="card" height="400px">
-    <el-carousel-item v-for="item in img" :key="item.id">
-     <el-image fit="cover" :src="item.view"/>
-    </el-carousel-item>
-  </el-carousel>
+  <div class="carousel">
+    <el-carousel type="card" :height="bannerHeight+'px'">
+      <el-carousel-item v-for="item in img" :key="item.id">
+        <el-image :src="item.view" fit="cover"/>
+      </el-carousel-item>
+    </el-carousel>
+  </div>
+
 </template>
 
 <script>
-import {reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
 
 export default {
   name: "Carousel",
@@ -20,12 +23,26 @@ export default {
         {id: '004', view: require('../assets/image/4.png')},
       ]
     })
+    let bannerHeight = ref(400)
 
-    return {...imgList,}
+    onMounted(()=>{
+      setSize();
+      window.addEventListener('resize', ()=>{
+        setSize();
+      },false)
+    })
+    //
+    function setSize(){
+      bannerHeight.value = document.body.clientWidth / 4
+    }
+    return {...imgList, bannerHeight}
   }
 }
 </script>
 
 <style scoped>
+.carousel{
+  width: 100%;
 
+}
 </style>
