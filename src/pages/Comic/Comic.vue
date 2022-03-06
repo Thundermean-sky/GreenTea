@@ -1,10 +1,17 @@
 <template>
-  <h1>wuhuqifei</h1>
+  <div>
+    <h1>漫画界面</h1>
+
+  </div>
+
+  <SingleComic/>
 </template>
 
 <script>
+import SingleComic from "@/components/SingleComic";
 export default {
-  name: "Comic"
+  name: "Comic",
+  components: {SingleComic}
 }
 </script>
 

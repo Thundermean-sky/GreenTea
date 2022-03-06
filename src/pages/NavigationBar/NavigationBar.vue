@@ -3,30 +3,33 @@
     <el-tabs class="title" @tab-click="changePath">
       <el-tab-pane >
         <template v-slot:label>
-          <div class="title_item">首页</div>
+          <router-link class="title_item" to="/homepage">首页</router-link>
         </template>
       </el-tab-pane>
       <el-tab-pane>
           <template v-slot:label>
-            <div class="title_item">漫画</div>
+            <router-link class="title_item" to="/comic">漫画</router-link>
           </template>
       </el-tab-pane>
       <el-tab-pane>
           <template v-slot:label>
-            <div class="title_item">小说</div>
+            <router-link class="title_item" to="/novel">小说</router-link>
           </template>
       </el-tab-pane>
       <el-tab-pane>
           <template v-slot:label>
-            <div class="title_item">游戏</div>
+            <router-link class="title_item" to="/game">游戏</router-link>
           </template>
       </el-tab-pane>
       <el-tab-pane>
           <template v-slot:label>
-            <div class="title_item">关于我们</div>
+            <router-link class="title_item" to="/aboutUs">关于我们</router-link>
           </template>
       </el-tab-pane>
     </el-tabs>
+  </div>
+  <div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -56,4 +59,10 @@ export default {
   text-align: center;
   color: #67C23A;
 }
+a{
+  text-decoration: none;
+}
+/*.router-link-active{*/
+/*  text-decoration: none;*/
+/*}*/
 </style>

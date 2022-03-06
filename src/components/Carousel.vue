@@ -1,6 +1,6 @@
 <template>
   <div class="carousel">
-    <el-carousel type="card" :height="bannerHeight+'px'">
+    <el-carousel type="card" :height="bannerHeight+'px'" interval=2000>
       <el-carousel-item v-for="item in img" :key="item.id">
         <el-image :src="item.view" fit="cover"/>
       </el-carousel-item>

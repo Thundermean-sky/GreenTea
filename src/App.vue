@@ -6,26 +6,18 @@
     <NavigationBar/>
   </div>
   <div>
-    <Carousel/>
-  </div>
-  <div class="home-content">
-    <HomePage></HomePage>
-  </div>
-  <div>
     <Footer/>
   </div>
 </template>
 
 <script>
 
-import HomePage from "@/pages/HomePage/HomePage";
-import NavigationBar from "@/pages/BavigationBar/NavigationBar";
+import NavigationBar from "@/pages/NavigationBar/NavigationBar";
 import Footer from "@/components/Footer";
-import Carousel from "@/components/Carousel";
 
 export default {
   name: 'App',
-  components: {Carousel, NavigationBar, HomePage,Footer},
+  components: { NavigationBar,Footer},
 }
 </script>
 
@@ -39,9 +31,5 @@ export default {
 /*  right: 0;*/
 /*  bottom: 0;*/
 /*}*/
-.home-content {
-  position: relative;
-  width: 100%;
-  left: 150px;
-}
+
 </style>
