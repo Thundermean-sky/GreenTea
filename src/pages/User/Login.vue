@@ -1,5 +1,5 @@
 <template>
-  <div class="login" v-if="userData.isOnline">
+  <div class="login">
     <div id="login_title">
       <span>登录绿茶汉化组</span>
     </div>
@@ -22,6 +22,7 @@
 <script>
 import {getCurrentInstance, reactive} from "vue";
 import {useRouter} from "vue-router";
+import userLogin from "@/hooks/userLogin";
 
 export default {
   name: 'Login',
@@ -31,7 +32,7 @@ export default {
     let userData = reactive({
       username: "",
       password: "",
-      isOnline:false
+      isOnline:true
     })
     const rules = reactive({
       username: [
@@ -60,22 +61,18 @@ export default {
       ]
     })
 
-     const submitForm = (refName)=> {
+     const submitForm = async (refName)=> {
       proxy.$refs[refName].validate((valid) =>{
         if(!valid)
         {
-          alert('用户名活密码错误')
-        }
-        else
-        {
-          userData.isOnline = false
-
-          router.push({
-            path: "/homepage"
-          })
+          alert('用户名或密码错误')
+          return
         }
 
       })
+       const data = await userLogin(userData.username, userData.password);
+       console.log(data)
+       router.push("/homepage")
     }
 
     return{userData, rules, submitForm}
@@ -93,6 +90,7 @@ export default {
   height: 300px;
   box-shadow: 0 0 10px greenyellow;
   border-radius: 10px;
+  margin: auto;
 }
 .login_content {
   display: flex;
