@@ -9,7 +9,7 @@ import AboutUs from "@/pages/AboutUs/AboutUs";
 const routes = [
     {
       path:'/',
-      component:Login,
+      component:HomePage,
     },
     {
         path:'/login',

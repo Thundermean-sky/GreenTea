@@ -34,44 +34,66 @@
             <div class="content">
               <span>简介：{{introduction}}</span>
             </div>
+            <div class="content">
+              <span>观看地址：
+                <el-link :href="url" type="success" class="view-url">
+                  点击前往
+                </el-link></span>
+            </div>
           </div>
         </div>
       </template>
-      <div class="btn">
-        <div class="btn-class" v-for="(item, index) in episodes" :key="index">
-          <el-button type="success" size="large" >
-            {{item}}
-          </el-button>
-        </div>
+<!--      <div class="btn">-->
+<!--        <div class="btn-class" v-for="(item, index) in episodes" :key="index">-->
+<!--          <el-button type="success" size="large" >-->
+<!--            {{item}}-->
+<!--          </el-button>-->
+<!--        </div>-->
 
-      </div>
+<!--      </div>-->
     </el-card>
   </div>
 
 </template>
 
 <script>
-import {reactive} from "vue";
+import {onMounted, reactive} from "vue";
+import useComic from "@/hooks/useComic";
 
 export default {
   name: "SingleComic",
-  setup(){
+  setup() {
     const comicData = reactive({
-    data: {
-      id: "001",
-      name: 'Mean',
-      episodes:50,
-      author: '马氏三角杀',
-      lastUpdate: '2022/01/02',
-      comicType:['好啊', 'LSP', '猎奇'],
-      introduction: '这个漫画啊，真J8好看啊,1957年，毛泽东在莫斯科对中国青年留学生们说的这句话，' +
-          '对整整一代中国人来说，都激起过强烈共鸣，产生过深远影响。在五四青年节到来之际，让我们重温毛泽东对青年的赞颂和寄语，' +
-          '激励新时代青年不忘初心、砥砺奋斗、施展才华，唱响新时代的青春之歌。' +
-          ''},
+      data: {
+        id: "001",
+        name: 'Mean',
+        episodes: 50,
+        author: '马氏三角杀',
+        lastUpdate: '2022/01/02',
+        comicType: ['好啊', 'LSP', '猎奇'],
+        introduction: '这个漫画啊，真J8好看啊,1957年，毛泽东在莫斯科对中国青年留学生们说的这句话，' +
+            '对整整一代中国人来说，都激起过强烈共鸣，产生过深远影响。在五四青年节到来之际，让我们重温毛泽东对青年的赞颂和寄语，' +
+            '激励新时代青年不忘初心、砥砺奋斗、施展才华，唱响新时代的青春之歌。',
+        url:'https://www.baidu.com'
+      },
     })
 
-    return { ...comicData.data,}
-  }
+     onMounted(async ()=>{
+       try
+       {
+         const testData = await useComic('001')
+         console.log(testData)
+       } catch(err)
+       {
+         console.log(err)
+       }
+
+
+    })
+
+    return {...comicData.data,}
+  },
+
 }
 </script>
 
@@ -100,15 +122,20 @@ export default {
   padding: 20px;
   font-size: 20px;
 }
-.btn{
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-.btn-class{
-  padding: 5px 5px;
+.view-url{
+  display: inline-block;
   font-size: 20px;
+  padding-bottom: 7px;
 }
+/*.btn{*/
+/*  display: flex;*/
+/*  justify-content: flex-start;*/
+/*  flex-wrap: wrap;*/
+/*}*/
+/*.btn-class{*/
+/*  padding: 5px 5px;*/
+/*  font-size: 20px;*/
+/*}*/
 .tag-text{
   padding: 18px 3px 18px 3px ;
 }
