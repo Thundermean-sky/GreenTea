@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs class="title" @tab-click="changePath">
+    <el-tabs class="title">
       <el-tab-pane >
         <template v-slot:label>
           <router-link class="title_item" to="/homepage">首页</router-link>
@@ -34,11 +34,7 @@
 export default {
   name: "NavigationBar",
   setup(){
-    function changePath(pages){
-      console.log(pages.index)
-    }
-
-    return {changePath}
+    return {}
   }
 }
 </script>

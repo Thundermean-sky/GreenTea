@@ -5,6 +5,7 @@ import Comic from "@/pages/Comic/Comic";
 import Novel from "@/pages/Novel/Novel";
 import Game from "@/pages/Game/Game";
 import AboutUs from "@/pages/AboutUs/AboutUs";
+import SingleComic from "@/components/SingleComic";
 
 const routes = [
     {
@@ -23,9 +24,13 @@ const routes = [
     {
         path:'/comic',
         component:Comic,
-        children:{
-
-        }
+        children:[          //子路由跳转暂未实现
+            {
+                name:'singleComic',
+                path:'/singleComic',
+                component:SingleComic
+            }
+        ]
     },
     {
         path:'/novel',
