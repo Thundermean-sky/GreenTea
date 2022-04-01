@@ -24,13 +24,11 @@ const routes = [
     {
         path:'/comic',
         component:Comic,
-        children:[          //子路由跳转暂未实现
-            {
-                name:'singleComic',
-                path:'/singleComic',
-                component:SingleComic
-            }
-        ]
+    },
+    {
+        name:'singleComic',
+        path: '/comic/singleComic/:id',
+        component: SingleComic
     },
     {
         path:'/novel',

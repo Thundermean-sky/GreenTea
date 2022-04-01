@@ -1,5 +1,5 @@
 <template>
-  <div class="single">
+  <div class="single" v-if="isView">
     <el-card>
       <template v-slot:header>
         <div class="title">
@@ -10,7 +10,7 @@
           </div>
           <div class="text">
             <div class="content">
-              <span>漫画名：{{name}}</span>
+              <span>漫画名：{{testData.name}}</span>
             </div>
             <div class="content">
               <span>作者：{{author}}</span>
@@ -39,6 +39,7 @@
                 <el-link :href="url" type="success" class="view-url">
                   点击前往
                 </el-link></span>
+              <span>{{name}}</span>
             </div>
           </div>
         </div>
@@ -57,41 +58,53 @@
 </template>
 
 <script>
-import {onMounted, reactive} from "vue";
+import {ref} from "vue";
+import {useRoute} from "vue-router";
 import useComic from "@/hooks/useComic";
 
 export default {
   name: "SingleComic",
+
   setup() {
-    const comicData = reactive({
-      data: {
-        id: "001",
-        name: 'Mean',
-        episodes: 50,
-        author: '马氏三角杀',
-        lastUpdate: '2022/01/02',
-        comicType: ['好啊', 'LSP', '猎奇'],
-        introduction: '这个漫画啊，真J8好看啊,1957年，毛泽东在莫斯科对中国青年留学生们说的这句话，' +
-            '对整整一代中国人来说，都激起过强烈共鸣，产生过深远影响。在五四青年节到来之际，让我们重温毛泽东对青年的赞颂和寄语，' +
-            '激励新时代青年不忘初心、砥砺奋斗、施展才华，唱响新时代的青春之歌。',
-        url:'https://www.baidu.com'
-      },
+
+    let isView = ref(false)
+    // const comicData = reactive({
+    //   data: {
+    //     id: "001",
+    //     name: 'Mean',
+    //     episodes: 50,
+    //     author: '马氏三角杀',
+    //     lastUpdate: '2022/01/02',
+    //     comicType: ['好啊', 'LSP', '猎奇'],
+    //     introduction: '这个漫画啊，真J8好看啊,1957年，毛泽东在莫斯科对中国青年留学生们说的这句话，' +
+    //         '对整整一代中国人来说，都激起过强烈共鸣，产生过深远影响。在五四青年节到来之际，让我们重温毛泽东对青年的赞颂和寄语，' +
+    //         '激励新时代青年不忘初心、砥砺奋斗、施展才华，唱响新时代的青春之歌。',
+    //     url:'https://www.baidu.com'
+    //   },
+    // })
+
+    const route = useRoute();
+
+    let testData = ref({});
+    useComic(route.params.id).then(data=>{
+      testData.value = data
+      console.log(testData.value)
+      isView.value = true;
+
     })
-
-     onMounted(async ()=>{
-       try
-       {
-         const testData = await useComic('001')
-         console.log(testData)
-       } catch(err)
-       {
-         console.log(err)
-       }
-
-
-    })
-
-    return {...comicData.data,}
+    //  onMounted(async ()=>{
+    //    try
+    //    {
+    //      const testData = await useComic('001')
+    //      console.log(testData)
+    //    } catch(err)
+    //    {
+    //      console.log(err)
+    //    }
+    //
+    //
+    // })
+    return {testData, isView}
   },
 
 }

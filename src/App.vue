@@ -1,7 +1,7 @@
 <template>
-    <NavigationBar/>
-    <router-view/>
-    <Footer/>
+  <NavigationBar/>
+  <router-view/>
+  <Footer/>
 </template>
 
 <script>

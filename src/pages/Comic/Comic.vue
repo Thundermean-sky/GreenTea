@@ -31,8 +31,8 @@
 
   <div class="comicBox"  v-if="flag" >
     <div class="insideComic">
-      <div class="singleComic" v-for="item in comicData.value" :key="item.ID" @click="jump">
-        <SimpleComic :name="item.name" :author="item.author"/>
+      <div class="singleComic" v-for="item in comicData.value" :key="item.ID">
+          <SimpleComic :name="item.name" :author="item.author" :id="item.ID"/>
       </div>
     </div>
 
@@ -45,7 +45,6 @@ import { reactive, ref} from "vue";
 import getTypeList from "@/hooks/getTypeList";
 import SimpleComic from "@/components/SimpleComic";
 import searchComic from "@/hooks/searchComic";
-import {useRouter} from "vue-router";
 
 
 export default {
@@ -96,17 +95,8 @@ export default {
 
     }
 
-    function jump()     //点击跳转到单个漫画界面
-    {
-      console.log("@@@@")
-      const router = useRouter()
-      router.push({
-        name:'singleComic'
-      })
-    }
 
-
-    return { progress, ...typeList, flag, comicData, searchName, searchComicList, jump}
+    return { progress, ...typeList, flag, comicData, searchName, searchComicList}
   },
 
 }
