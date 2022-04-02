@@ -3,7 +3,7 @@
     <div class="typeBox">
       <div class="typeName">类型</div>
       <div class="typeBtn">
-        <el-button class="el-button" type="text" v-for="item in List" :key="item.typeId">
+        <el-button class="el-button" type="text" v-for="item in List" :key="item.typeId" @click="changeType(item.name)">
           {{item.name}}
         </el-button>
       </div>
@@ -11,7 +11,7 @@
     <div class="processBox">
       <div class="processName">进度</div>
       <div>
-        <el-button type="text" v-for="(item, index) in progress" :key="index">
+        <el-button type="text" v-for="(item, index) in progress" :key="index" @click="changeProcess(item)">
           {{item}}
         </el-button>
       </div>
@@ -25,7 +25,7 @@
           placeholder="搜索漫画"
           clearable
       />
-      <el-button class="searchBtn" size="large" type="success" round @click="searchComicList(searchName)">搜索</el-button>
+      <el-button class="searchBtn" size="large" type="success" round @click="searchComicList">搜索</el-button>
     </div>
   </div>
 
@@ -68,6 +68,7 @@ export default {
     let flag = ref(false)     //数据来临时渲染界面
 
 
+    //刚开始读取数据
     let comicData = reactive({});
     getTypeList('全部', '全部').then((data)=>{
       comicData.value = data;
@@ -75,19 +76,41 @@ export default {
     })
 
 
-    let searchName = ref('')
+    //按照类型进行漫画列表选取
+    let curType = ref('全部')
+    let curProcess = ref('全部')
+    function changeType(value)
+    {
+      curType.value = value
+      getListByTypeAndProcess()
+    }
+    function changeProcess(value)
+    {
+      curProcess.value = value
+      getListByTypeAndProcess()
+    }
+    function getListByTypeAndProcess()
+    {
+      console.log(curType.value,"----",curProcess.value)
+    }
 
-    async function searchComicList(comicName)     // 搜索功能实现函数
+
+
+    // 搜索功能实现函数
+    let searchName = ref('')
+    async function searchComicList(comicName)
     {
       try {
-        if(comicName === '')
+        if(searchName.value === "")     // 如果没有输入任何字，则返回全部列表
         {
-          return;
+          getTypeList('全部', '全部').then((data)=>{
+            comicData.value = data;
+          })
         }
-        console.log(comicData.value)
-        const searchList = await searchComic(comicName)
-        comicData.value = [searchList]
-        console.log(comicData.value)
+        else {
+          const searchList = await searchComic(comicName)
+          comicData.value = [searchList]
+        }
       }catch (e)
       {
         alert('没有查找到哦')
@@ -96,7 +119,9 @@ export default {
     }
 
 
-    return { progress, ...typeList, flag, comicData, searchName, searchComicList}
+    return { progress, ...typeList, flag, comicData, searchName, searchComicList,
+      curType, curProcess, changeType, changeProcess, getListByTypeAndProcess
+    }
   },
 
 }
@@ -133,6 +158,7 @@ export default {
   font-size: 20px;
 }
 .searchBox{
+  width: 75%;
   text-align: right;
 }
 .searchInput{

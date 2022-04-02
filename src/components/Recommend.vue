@@ -6,8 +6,10 @@
     <div class="card">
       <Card v-for="item in comicBook" :key="item.id" :bookInfo="item"/>
     </div>
-    <div >
-      <el-link type="success" class="more_link"> >>>更多 </el-link>
+    <div class="more_link">
+      <router-link to="/comic">
+        <el-link type="success" > >>>更多 </el-link>
+      </router-link>
     </div>
 </template>
 
@@ -18,7 +20,7 @@ export default {
   name: "Recommend",
   components: {Card},
   props:['title'],
-  setup(props){
+  setup(){
       const book = reactive({
       comicBook:[
         {id: '001', name: '魔法禁书目录',author: 'Mean'},
@@ -27,7 +29,7 @@ export default {
         {id: '004', name: 'FGO', author: 'seeing'}
       ]
       })
-    return {...book, ...props}
+    return {...book,}
   }
 }
 </script>
@@ -42,6 +44,13 @@ export default {
   width: 500px;
 }
 .more_link{
-  left: 90%;
+  text-align: right;
 }
+a{
+  text-decoration: none;
+}
+/*.router-link-active{*/
+/*  text-decoration: none;*/
+/*  color: mediumvioletred;*/
+/*}*/
 </style>

@@ -1,6 +1,8 @@
 <template>
   <NavigationBar/>
-  <router-view/>
+  <div class="appContent">
+    <router-view/>
+  </div>
   <Footer/>
 </template>
 
@@ -15,7 +17,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 *{
   padding: 0;
   margin: 0;
@@ -23,6 +25,9 @@ export default {
 }
 html,body{
   height: 100%;
+}
+.appContent{
+  min-height:700px;
 }
 /*#app{*/
 /*  height: 100%;*/
