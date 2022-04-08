@@ -3,8 +3,8 @@
     <div class="typeBox">
       <div class="typeName">类型</div>
       <div class="typeBtn">
-        <el-button class="el-button" type="text" v-for="item in List" :key="item.typeId" @click="changeType(item.name)">
-          {{item.name}}
+        <el-button class="el-button" type="text" v-for="item in typeList" :key="item.TID" @click="changeType(item.TID)">
+          {{item.typeName}}
         </el-button>
       </div>
     </div>
@@ -31,20 +31,20 @@
 
   <div class="comicBox"  v-if="flag" >
     <div class="insideComic">
-      <div class="singleComic" v-for="item in comicData.value" :key="item.ID">
-          <SimpleComic :name="item.name" :author="item.author" :id="item.ID"/>
+      <div class="singleComic" v-for="item in comicData.value" :key="item.CID">
+          <SimpleComic :name="item.name" :author="item.author" :CID="item.CID"/>
       </div>
     </div>
-
 <!--    <el-pagination layout="prev, pager, next" />-->
   </div>
 </template>
 
 <script>
-import { reactive, ref} from "vue";
+import {reactive, ref} from "vue";
 import getTypeList from "@/hooks/getTypeList";
 import SimpleComic from "@/components/SimpleComic";
 import searchComic from "@/hooks/searchComic";
+import {useStore} from "vuex";
 
 
 export default {
@@ -52,16 +52,9 @@ export default {
   components: {SimpleComic},
 
   setup(){
-    const typeList = reactive({
-      List:[
-        {typeId:'1', name:'奇幻'},
-        {typeId:'2', name:'冒险'},
-        {typeId:'3', name:'轻小说'},
-        {typeId:'4', name:'校园'},
-        {typeId:'5', name:'爱情'},
+    const store = useStore()
 
-      ]
-    })
+    const typeList = ref(store.state.comic.typeList);
     const progress = ref(['全部', '连载中', '已完结'])
 
 
@@ -70,11 +63,10 @@ export default {
 
     //刚开始读取数据
     let comicData = reactive({});
-    getTypeList('全部', '全部').then((data)=>{
+    getTypeList('W', '全部').then((data)=>{
       comicData.value = data;
       flag.value = true;
     })
-
 
     //按照类型进行漫画列表选取
     let curType = ref('全部')
@@ -82,12 +74,16 @@ export default {
     function changeType(value)
     {
       curType.value = value
-      getListByTypeAndProcess()
+      getTypeList(curType.value,curProcess.value).then((data)=>{
+        comicData.value = data;
+      })
     }
     function changeProcess(value)
     {
       curProcess.value = value
-      getListByTypeAndProcess()
+      getTypeList(curType.value,curProcess.value).then((data)=>{
+        comicData.value = data;
+      })
     }
     function getListByTypeAndProcess()
     {
@@ -103,7 +99,7 @@ export default {
       try {
         if(searchName.value === "")     // 如果没有输入任何字，则返回全部列表
         {
-          getTypeList('全部', '全部').then((data)=>{
+          getTypeList('W', '全部').then((data)=>{
             comicData.value = data;
           })
         }
@@ -119,8 +115,8 @@ export default {
     }
 
 
-    return { progress, ...typeList, flag, comicData, searchName, searchComicList,
-      curType, curProcess, changeType, changeProcess, getListByTypeAndProcess
+    return { progress, flag, comicData, searchName, searchComicList,
+      curType, curProcess, changeType, changeProcess, getListByTypeAndProcess, typeList
     }
   },
 
@@ -178,8 +174,5 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-}
-.singleComic{
-  margin: 10px;
 }
 </style>

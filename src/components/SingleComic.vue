@@ -1,6 +1,6 @@
 <template>
   <div class="single" v-if="isView">
-    <el-card class="card">
+    <el-card class="singleComicCard">
         <div class="title">
           <div class="top">
             <el-card>
@@ -35,12 +35,20 @@
             </div>
             <div class="content">
               <span>观看地址：
-                <el-link :href="comicData.url" type="success" class="view-url">
+                <el-link :href="comicData.viewUrl" type="success" class="view-url">
                   点击前往
                 </el-link></span>
             </div>
           </div>
-          <div>
+          <div class="recommendBox">
+            <div class="recommendTitle">
+              <h2>相关类型推荐</h2>
+            </div>
+            <div class="recommendComicBox">
+              <div v-for="item in recommendData" :key="item.ID">
+                <SimpleComic :id="item.ID" :name="item.name" :author="item.author"/>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -54,11 +62,6 @@
 
 <!--      </div>-->
     </el-card>
-
-
-<!--    <div>-->
-<!--        <Recommend/>-->
-<!--    </div>-->
   </div>
 
 </template>
@@ -67,9 +70,12 @@
 import {ref} from "vue";
 import {useRoute} from "vue-router";
 import useComic from "@/hooks/useComic";
+import SimpleComic from "@/components/SimpleComic";
+// import getComicByType from "@/hooks/getComicByType";
 
 export default {
   name: "SingleComic",
+  components: {SimpleComic},
   setup() {
 
     let isView = ref(false)
@@ -77,14 +83,20 @@ export default {
     const route = useRoute();
 
     let comicData = ref({});
-    let recommend = ref([]);
-    useComic(route.params.id).then(data=>{
+    // let recommend = ref('');
+    let recommendData = ref([])
+    useComic(route.params.CID).then(data=>{
       comicData.value = data
-      recommend.value = comicData.value.comicType
-      console.log(recommend.value)
+      // recommend.value = comicData.value.comicType[0]
       isView.value = true;
     })
-    return {comicData, isView}
+    // getComicByType(recommend.value).then(data=>{
+    //   recommendData.value = data
+    //   console.log(recommendData.value)
+    // })
+
+
+    return {comicData, isView, recommendData}
   },
 
 }
@@ -94,13 +106,15 @@ export default {
 .single{
   width: 100%;
 }
-.card{
+.singleComicCard{
   min-width: 500px;
 }
 .title{
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin: 10px 0 0 5%;
+
 }
 .top{
   width: 400px;
@@ -133,5 +147,12 @@ export default {
 /*}*/
 .tag-text{
   padding: 18px 3px 18px 3px ;
+}
+.recommendTitle{
+
+}
+.recommendComicBox{
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

@@ -2,12 +2,10 @@ import axios from 'axios'
 
 export default async function useComic(comicId){
     return new Promise((resolve, reject)=>{
-        axios.get('https://yapi.lingyun-sky.top/mock/19/greentea/simpleComic',{
-            comicId:comicId
-        }).then(
+        axios.get(`http://localhost/comics/${comicId}`).then(
             function(response){
-                const {data:{code, data, msg}} = response
-                if(code === 1 && msg === 'success')
+                const {data:{data, msg}} = response
+                if((response.status >= 200 && response.status < 300) && msg === 'success')
                 {
                     resolve(data)
                 }

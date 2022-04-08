@@ -27,7 +27,7 @@ const routes = [
     },
     {
         name:'singleComic',
-        path: '/comic/singleComic/:id',
+        path: '/comic/singleComic/:CID',
         component: SingleComic
     },
     {

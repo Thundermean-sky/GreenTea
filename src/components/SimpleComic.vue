@@ -1,6 +1,6 @@
 <template>
   <el-card class="card" shadow="hover">
-    <router-link :to="{name:'singleComic',params:{'id':id}}">
+    <router-link :to="{name:'singleComic',params:{'CID':CID}}">
       <el-image fit="cover" :src="imgUrl"/>
     </router-link>
     <div class="info">
@@ -15,21 +15,11 @@ import {reactive} from "vue";
 
 export default {
   name: "SimpleComic",
-  props:['id', 'name', 'author'],
+  props:['CID', 'name', 'author'],
   setup(){
     const imgData = reactive({
       imgUrl:require('../assets/image/6.jpg'),
     })
-
-    // function jump(value){
-    //   const router = useRouter();
-    //   router.push({
-    //     name:'singleComic',
-    //     params:{
-    //       id:value
-    //     }
-    //   })
-    // }
 
     return {
       ...imgData
@@ -42,6 +32,7 @@ export default {
 .card{
   width: 280px;
   height: auto;
+  margin: 10px;
 }
 .info{
   display: flex;
