@@ -1,10 +1,12 @@
 <template>
     <div class="title">
-      <h2>{{title}}</h2>
+      <h2>{{title}}(最近更新)</h2>
       <hr>
     </div>
     <div class="card">
-      <Card v-for="item in comicBook" :key="item.id" :bookInfo="item"/>
+      <div v-for="item in book" :key="item.CID">
+        <SimpleComic class="rec_single" :name="item.name" :author="item.author" :CID="item.CID"/>
+      </div>
     </div>
     <div class="more_link">
       <router-link to="/comic">
@@ -14,22 +16,22 @@
 </template>
 
 <script>
-import Card from "@/components/Card";
-import {reactive} from "vue";
+import {ref} from "vue";
+import SimpleComic from "@/components/SimpleComic";
+import getComicListByRec from "@/hooks/getComicListByRec";
 export default {
   name: "Recommend",
-  components: {Card},
+  components: {SimpleComic},
   props:['title'],
   setup(){
-      const book = reactive({
-      comicBook:[
-        {id: '001', name: '魔法禁书目录',author: 'Mean'},
-        {id: '002', name: '少女前线', author: 'Ring'},
-        {id: '003', name: '碧蓝航线', author: 'King'},
-        {id: '004', name: 'FGO', author: 'seeing'}
-      ]
-      })
-    return {...book,}
+      let book = ref({})
+
+    getComicListByRec().then(data=>{
+      book.value = data;
+    })
+
+
+    return {book,}
   }
 }
 </script>
@@ -41,7 +43,9 @@ export default {
 }
 .card {
   display: flex;
-  width: 500px;
+}
+.rec_single{
+  width: 230px;
 }
 .more_link{
   text-align: right;

@@ -1,6 +1,9 @@
 <template>
   <div class="single" v-if="isView">
     <el-card class="singleComicCard">
+      <template v-slot:header>    <!-- 修改漫画信息，登录状态下呈现 -->
+        <ChangeAndDeleteComicData :data="comicData"/>
+      </template>
         <div class="title">
           <div class="top">
             <el-card>
@@ -71,11 +74,12 @@ import {ref} from "vue";
 import {useRoute} from "vue-router";
 import useComic from "@/hooks/useComic";
 import SimpleComic from "@/components/SimpleComic";
+import ChangeAndDeleteComicData from "@/components/ChangeAndDeleteComicData";
 // import getComicByType from "@/hooks/getComicByType";
 
 export default {
   name: "SingleComic",
-  components: {SimpleComic},
+  components: {ChangeAndDeleteComicData, SimpleComic},
   setup() {
 
     let isView = ref(false)

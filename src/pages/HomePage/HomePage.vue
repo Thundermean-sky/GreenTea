@@ -4,13 +4,8 @@
   </div>
   <div class="home-content">
     <div class="rec">
-      <div class="first">
-        <Recommend title="漫画"/>
-        <RankList class="rank"/>
-      </div>
-    </div>
-    <div class="rec">
-      <Recommend title="小说"/>
+      <Recommend title="漫画"/>
+<!--        <RankList class="rank"/>-->
     </div>
     <div class="rec">
       <Recommend title="游戏"/>
@@ -21,17 +16,17 @@
 
 <script>
 import Recommend from "@/components/Recommend";
-import RankList from "@/components/RankList";
 import Carousel from "@/components/Carousel";
 export default {
   name: "HomePage",
-  components: {Carousel, RankList, Recommend}
+  components: {Carousel, Recommend}
 }
 </script>
 
 <style scoped>
 .rec{
-  width: 1000px;
+  width: 90%;
+  margin: 0 auto;
 }
 .rank{
   width: 300px;
@@ -40,8 +35,6 @@ export default {
   top: 50px;
 }
 .home-content {
-  position: relative;
   width: 100%;
-  left: 150px;
 }
 </style>
